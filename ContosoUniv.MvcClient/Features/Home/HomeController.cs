@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ContosoUniv.MvcClient.Models;
 
-namespace ContosoUniv.MvcClient.Controllers
+namespace ContosoUniv.MvcClient.Features.Home
 {
     public class HomeController : Controller
     {

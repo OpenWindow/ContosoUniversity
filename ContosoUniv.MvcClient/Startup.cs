@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ContosoUniv.MvcClient.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using MediatR;
+using ContosoUniv.MvcClient.Infrastructure;
 
 namespace ContosoUniv.MvcClient
 {
@@ -22,7 +25,16 @@ namespace ContosoUniv.MvcClient
             services.AddDbContext<SchoolContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc();
+            services.AddMvc(opt =>
+                {
+                  opt.Filters.Add(typeof(DbContextTransactionFilter));
+                  // opt.ModelBinderProviders.Insert(0, new EntityModelBinderProvider());
+                })
+                .AddFeatureFolders();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
