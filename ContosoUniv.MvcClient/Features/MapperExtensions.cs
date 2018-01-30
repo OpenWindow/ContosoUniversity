@@ -7,13 +7,9 @@ using X.PagedList;
 
 namespace ContosoUniv.MvcClient.Features
 {
-    public static class MapperExtensions
-    {
-        public static Task<IPagedList<TDestination>> ProjectToPagedListAsync<TDestination>(this IQueryable queryable, int pageNumber, int pageSize)
-        {
-            return queryable.ProjectTo<TDestination>()
-                   .ToPagedListAsync(pageNumber, pageSize);
-                
-        }
-    }
+  public static class MapperExtensions
+  {
+    public static Task<PaginatedList<TDestination>> PaginatedListAsync<TDestination>(this IQueryable<TDestination> queryable, int pageNumber, int pageSize)
+    => PaginatedList<TDestination>.CreateAsync(queryable, pageNumber, pageSize);
+  }
 }
